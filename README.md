@@ -24,7 +24,7 @@ javac -cp <path_to_jruby.jar> jwsgi_rack.java
 Running
 =======
 
-```
+```ini
 [uwsgi]
 ; bind to http port
 http-socket = :9090
