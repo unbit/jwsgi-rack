@@ -1,6 +1,10 @@
 import java.util.*;
 import java.io.*;
 import org.jruby.Ruby;
+import org.jruby.RubyInstanceConfig;
+import org.jruby.util.cli.OutputStrings;
+import org.jruby.RubyClass;
+import org.jruby.RubyModule;
 import org.jruby.RubyArray;
 import org.jruby.RubyObject;
 import org.jruby.RubyHash;
@@ -49,17 +53,30 @@ public class jwsgi_rack {
                 }
         }
 	
-	public jwsgi_rack() {
-		System.out.println("initializing JRuby...");
+	public jwsgi_rack() throws Exception {
+		if (!uwsgi.opt.containsKey("jwsgi-rack")) {
+			throw new Exception("you have to specify the path of a rack application with the \"jwsgi-rack\" virtual option");	
+		}
+		System.out.println(uwsgi.opt.toString());
+		System.out.println("launching jruby...");
+		RubyInstanceConfig config = new RubyInstanceConfig();
 		rb = Ruby.newInstance();
 
+		config.getOutput().println(OutputStrings.getVersionString(config.getCompatVersion()));
+
 		rb.getLoadService().require("rubygems");
-		rb.evalScriptlet("require 'rack'");
+		rb.getObject().callMethod("require", rb.newString("rack"));
 
-		RubyArray rackup = (RubyArray) rb.evalScriptlet("Rack::Builder.parse_file('config.ru')");
-
+		RubyModule rack_module = rb.getModule("Rack");
+		if (rack_module == null) {
+			throw new Exception("unable to find Rack::Builder");
+		}
+		RubyClass rack_builder = rack_module.getClass("Builder");
+		if (rack_builder == null) {
+			throw new Exception("unable to find Rack::Builder");
+		}
+		RubyArray rackup = (RubyArray) rack_builder.callMethod("parse_file", rb.newString((String)uwsgi.opt.get("jwsgi-rack")));
 		app = (RubyObject) rackup.get(0);
-		System.out.println("JRuby ready");
 	}
 
 	public Object[] application(HashMap env) throws Exception {
