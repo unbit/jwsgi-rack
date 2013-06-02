@@ -16,7 +16,7 @@ Be sure to have at least uWSGI 1.9.12 (if it is still not released use the code 
 UWSGI_PROFILE=jwsgi make
 ```
 
-Install jruby in your system
+Install jruby in your system (only version 1.7.4 has been tested)
 
 Finally build the jwsgi-rack java class
 
