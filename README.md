@@ -8,7 +8,7 @@ It is the first attempt to heavily test the possibility of the JVM plugin in uWS
 Install
 =======
 
-Be sure to have at least uWSGI 1.9.12, and build it with JWSGI support
+Be sure to have at least uWSGI 1.9.12 (if it is still not released use the code from github), and build it with JWSGI support
 
 (you need python and java/jni development headers)
 
@@ -23,6 +23,13 @@ Finally build the jwsgi-rack java class
 ```
 javac -cp <path_to_jruby.jar>:<path_to_uwsgi.jar> jwsgi_rack.java
 ```
+
+and made a handy jar:
+
+```
+jar cvf jwsgi_rack.jar *.class
+```
+
 
 Running
 =======
