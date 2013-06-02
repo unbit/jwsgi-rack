@@ -144,7 +144,9 @@ public class jwsgi_rack {
 		config.getOutput().println(OutputStrings.getVersionString(config.getCompatVersion()));
 
 		rb.getLoadService().require("rubygems");
-		rb.getObject().callMethod("require", rb.newString("bundler/setup"));
+		if (uwsgi.opt.containsKey("jwsgi-rack-bundler")) {
+			rb.getObject().callMethod("require", rb.newString("bundler/setup"));
+		}
 		rb.getObject().callMethod("require", rb.newString("rack"));
 
 		RubyModule rack_module = rb.getModule("Rack");
