@@ -38,10 +38,14 @@ Running
 [uwsgi]
 ; bind to http port
 http-socket = :9090
+; automatically route requests to the jvm plugin
 http-socket-modifier1 = 8
 
 ; spawn 8 jvm threads
 threads = 8
+
+; enable post-buffering to allow rewind of request body (as required by rack specs)
+post-buffering = 8192
 
 ; add jar (or directories) to the java CLASSPATH
 jvm-classpath = <path_to_uwsgi.jar>
