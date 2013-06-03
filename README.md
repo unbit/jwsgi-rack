@@ -77,4 +77,4 @@ The jvm uWSGI build system tries to search for jvm/jni installation in well-know
 check the official documentation on: http://uwsgi-docs.readthedocs.org/en/latest/JVM.html
 
 If you use the "gold" linker instead of the classic "ld", the LD_RUN_PATH environment variable will not be honoured. That means
-you need to set the path of libjvm.so with LD_LIBRARY_PATH
+you need to set the path of libjvm.so with LD_LIBRARY_PATH when you run the "uwsgi" command
