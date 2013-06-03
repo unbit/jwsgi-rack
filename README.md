@@ -72,3 +72,9 @@ Virtual options cannot be set from command line. You have to use -S
 ```
 uwsgi -S jwsgi-rack=config.ru -S jwsgi-rack-bundler=true ...
 ```
+
+The jvm uWSGI build system tries to search for jvm/jni installation in well-known paths. If you have installed java in non-standard paths,
+check the official documentation on: http://uwsgi-docs.readthedocs.org/en/latest/JVM.html
+
+If you use the "gold" linker instead of the classic "ld", the LD_RUN_PATH environment variable will not be honoured. That means
+you need to set the path of libjvm.so with LD_LIBRARY_PATH
