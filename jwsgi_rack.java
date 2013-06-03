@@ -18,6 +18,7 @@ import org.jruby.runtime.Arity;
 import org.jruby.anno.JRubyClass;
 import org.jruby.anno.JRubyMethod;
 import org.jruby.runtime.ObjectAllocator;
+import org.jcodings.Encoding;
 
 	
 public class jwsgi_rack {
@@ -41,12 +42,14 @@ public class jwsgi_rack {
 		@JRubyMethod(name="gets")
 		public IRubyObject gets(ThreadContext context) {
 			// unimplemented
+			System.out.println("CALLING GETS");
 			return context.nil;
 		}
 
 		@JRubyMethod(name="each")
 		public IRubyObject each(ThreadContext context) {
 			// unimplemented
+			System.out.println("CALLING EACH");
 			return context.nil;
 		}
 
@@ -60,6 +63,7 @@ public class jwsgi_rack {
 		public IRubyObject read(ThreadContext context, IRubyObject [] args) {
 			long want = 0;
 			boolean return_nil = false;
+
 			// read all
 			if (args.length == 0) {
 				want = input.available();
@@ -88,12 +92,13 @@ public class jwsgi_rack {
 					buf.cat(b, 0, ret);
 					return buf;
 				}
-				return context.getRuntime().newString(RubyString.bytesToString(b, 0, ret));
+				return RubyString.newString(context.getRuntime(), b, 0, ret);
 			}
 			if (return_nil) {
 				return context.nil;
 			}
-			return context.getRuntime().newString("");
+			RubyString rs_ret = context.getRuntime().newString("");
+			return rs_ret;
 		}
 	}
 
