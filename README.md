@@ -24,7 +24,7 @@ Finally build the jwsgi-rack java class
 javac -cp <path_to_jruby.jar>:<path_to_uwsgi.jar> jwsgi_rack.java
 ```
 
-and made a handy jar:
+and make a handy jar:
 
 ```
 jar cvf jwsgi_rack.jar *.class
