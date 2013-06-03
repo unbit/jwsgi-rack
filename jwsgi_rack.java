@@ -79,19 +79,15 @@ public class jwsgi_rack {
 				}
 			}
 
-			System.out.println("need " + want);
-
 			byte[] b = new byte[(int)want];
 			int ret = input.read(b);
 			if (ret > 0) {
 				if (args.length > 1) {
-					System.out.println("size given");
 					RubyString buf = (RubyString) args[1];
 					buf.resize(ret);
 					buf.cat(b, 0, ret);
 					return buf;
 				}
-				System.out.println(RubyString.bytesToString(b, 0, ret));
 				return context.getRuntime().newString(RubyString.bytesToString(b, 0, ret));
 			}
 			if (return_nil) {
