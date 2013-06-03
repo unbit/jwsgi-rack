@@ -63,3 +63,12 @@ jwsgi-rack = config.ru
 ; decomment it for enabling bundler
 ; jwsgi-rack-bundler = true
 ```
+
+Notes
+=====
+
+Virtual options cannot be set from command line. You have to use -S
+
+```
+uwsgi -S jwsgi-rack=config.ru -S jwsgi-rack-bundler=true ...
+```
