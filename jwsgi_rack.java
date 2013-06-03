@@ -41,15 +41,17 @@ public class jwsgi_rack {
 
 		@JRubyMethod(name="gets")
 		public IRubyObject gets(ThreadContext context) {
-			// unimplemented
-			System.out.println("CALLING GETS");
+			byte[] b = new byte[4096];
+			int ret = input.readLine(b);
+			if (ret > 0) {
+				return RubyString.newString(context.getRuntime(), b, 0, ret);
+			}
 			return context.nil;
 		}
 
 		@JRubyMethod(name="each")
 		public IRubyObject each(ThreadContext context) {
-			// unimplemented
-			System.out.println("CALLING EACH");
+			System.out.println("each on rack.input is unimplemented");
 			return context.nil;
 		}
 
